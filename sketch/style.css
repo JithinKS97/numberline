@@ -1,7 +1,13 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 canvas {
   display: block;
+}
+
+button {
+  padding: 0.5rem;
+  margin: 0.5rem;
 }

@@ -8,6 +8,10 @@ class Numberline {
     this.min = min
     this.max = max
     this.tick = tick
+
+    const range = this.w
+    const noOfTicks = (this.max - this.min)/this.tick
+    this.tickWidth = range/noOfTicks
   }
   
   display() {
@@ -17,15 +21,11 @@ class Numberline {
     this.markCoords();
   }
 
-  markCoords() {
-    const range = this.w
-    const noOfTicks = (this.max - this.min)/this.tick
-    const tickWidth = range/noOfTicks
-    
+  markCoords() {    
     for(
       let x=this.x, n = this.min; 
-      x<= this.x + this.w; 
-      x+=tickWidth, n += this.tick
+      x <= this.x + this.w; 
+      x += this.tickWidth, n += this.tick
     ) {
       noStroke();
       fill(255)
@@ -34,15 +34,11 @@ class Numberline {
 
       textAlign(CENTER)
       textSize(15);
-      text(n, x, this.y+20);
+      text(n, x, this.y+25);
     }
   }
 
-  getXCoords() {
-
-  }
-
-  getXPixel() {
-    
+  getPix(x) {
+    return this.x + (x-this.min) * this.tickWidth * (1/this.tick)
   }
 }
