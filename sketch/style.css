@@ -11,3 +11,19 @@ button {
   padding: 0.5rem;
   margin: 0.5rem;
 }
+
+input {
+  width: 10rem;
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.invisible {
+  opacity: 0;
+  transition: opacity 0.2s;
+}

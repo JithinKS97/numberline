@@ -1,4 +1,4 @@
-const noOfSteps = 25
+const noOfSteps = 40
 
 class Ball {
     constructor({ x, y }) {
@@ -13,17 +13,20 @@ class Ball {
     display() {
         fill(220, 0, 150)
         circle(this.x, this.y + this.yJump, 15)
-        this.move();
+        this.doJump();
     }
 
-    goToPix(target) {
-        this.curveCenter = createVector(this.x + (target - this.x)/2, this.y)
-        this.resetSteps();
-        this.distToTravel = target - this.x;
-        this.step = this.distToTravel/this.noOfSteps
+    jumpTo(target) {
+        return new Promise((resolve)=>{
+            this.curveCenter = createVector(this.x + (target - this.x)/2, this.y)
+            this.resetSteps();
+            this.distToTravel = target - this.x;
+            this.step = this.distToTravel/this.noOfSteps
+            this.finishJump = resolve
+        })
     }
 
-    move() {
+    doJump() {
         if(this.noOfSteps>0) {
             this.step = this.distToTravel/noOfSteps
             this.x+=this.step;
@@ -31,6 +34,9 @@ class Ball {
 
             this.yMap = map(this.noOfSteps, 0, noOfSteps, 0, PI)
             this.yJump = -25*sin(this.yMap)
+        } else if(this.finishJump) {
+            this.finishJump();
+            this.finishJump = null;
         }
     }
 
