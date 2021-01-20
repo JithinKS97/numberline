@@ -1,4 +1,4 @@
-let n, config, b, currentNo = 0, tick = 1, min= -10, max=10;
+let n, config, b, currentNo = 0, tick = 1, min= -10, max=10, c;
 
 function setup() {
   createCanvas(1000, 400);
@@ -21,6 +21,7 @@ function setup() {
   
   n = new Numberline(numLineConfig)
   b = new Ball(ballConfig);
+  c = new Calculator();
 
   const nextButton = createButton("+1")
   nextButton.mousePressed(add(1))
@@ -43,4 +44,10 @@ function draw() {
   background(0)
   n.display();
   b.display();
+}
+
+function mouseClicked() {
+  const exp = "1+2-3"
+  console.log(exp)
+  console.log(c.calculate(exp))
 }
