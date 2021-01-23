@@ -135,7 +135,17 @@ const enableDisableButtons = () => {
     prevButton.attribute("disabled", true)
     nextButton.attribute("disabled", true)
   } else {
-    prevButton.removeAttribute("disabled", true)
-    nextButton.removeAttribute("disabled", true)
+    if(step!==0) {
+      prevButton.removeAttribute("disabled")
+    } else {
+      prevButton.attribute("disabled", true)
+    }
+    if(steps) {
+      if(step !== steps.length-1) {
+        nextButton.removeAttribute("disabled")
+      } else {
+        nextButton.attribute("disabled", true)
+      }
+    }
   }
 }

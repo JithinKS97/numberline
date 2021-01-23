@@ -15,7 +15,7 @@ class Calculator {
         for(let i=0;i<exp.length;i++) {
             if(Number(exp[i])) {
                 let currentNo = exp[i]
-                while(Number(exp[i+1]) || exp[i+1] === 0) {
+                while(Number(exp[i+1]) || exp[i+1] === "0") {
                     currentNo = exp[i] + exp[i+1]
                     i++;
                 }
