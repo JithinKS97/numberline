@@ -2,16 +2,16 @@ class Text {
     constructor({ x,y, size }) {
         this.x = x;
         this.y = y
-        this.trans = 0;
+        this.alpha = 0;
         this.show = false;
         this.text = ""
-        this.step = 35
+        this.alphaStep = 35
         this.size = size
     }
 
     display() {
        this.showStep();
-       fill(255, 255,255, this.trans)
+       fill(255, 255,255, this.alpha)
        textSize(this.size)
        textAlign(CENTER)
        text(this.text, this.x, this.y)
@@ -34,14 +34,15 @@ class Text {
 
     showStep = () => {
         if(this.show) {
-            if(this.trans<255) {
-                this.trans+=this.step;
+            const isStillVisible = this.alpha<255
+            if(isStillVisible) {
+                this.alpha+=this.alphaStep;
             } else {
                 this.finishShow();
             }
         } else {
-            if(this.trans>-step) {
-                this.trans-=this.step;
+            if(this.alpha>-step) {
+                this.alpha-=this.alphaStep;
             } else {
                 if(this.finishHide) {
                     this.finishHide();

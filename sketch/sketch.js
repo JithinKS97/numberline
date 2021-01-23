@@ -55,10 +55,17 @@ const initialize = () => {
 }
 
 const add = (noToAdd) => async () => {
-  if (steps.length === 0) {
+
+  const isExpressionNotEntered = steps.length === 0
+
+  if (isExpressionNotEntered) {
     return;
   }
-  if (step + noToAdd >= 0 && step + noToAdd < steps.length) {
+
+  const nextStep = step + noToAdd;
+  const isStepWithinRange = nextStep >= 0 && nextStep < steps.length;
+  
+  if (isStepWithinRange) {
     move(steps[step], steps[step + noToAdd]);
     step += noToAdd;
   }
@@ -85,10 +92,16 @@ const move = async (from, to) => {
   }
 
   await t.hideText();
-  await t.showText(getExp(to, from) + "=" + eval(getExp(to, from)));
+
+  const equalityString = getExp(to, from) + "=" + eval(getExp(to, from))
+  await t.showText(equalityString);
+
   await new Promise(resolve => setTimeout(resolve, 1000));
+
   await t.hideText();
-  await t.showText(eval(getExp(to, from)));
+
+  const result = eval(getExp(to, from));
+  await t.showText(result);
 
   loading = false;
 };
@@ -135,7 +148,19 @@ const enableDisableButtons = () => {
     prevButton.attribute("disabled", true)
     nextButton.attribute("disabled", true)
   } else {
-    prevButton.removeAttribute("disabled", true)
-    nextButton.removeAttribute("disabled", true)
+    const prevStepDoesNotExist = step!==0
+    if(prevStepDoesNotExist) {
+      prevButton.removeAttribute("disabled")
+    } else {
+      prevButton.attribute("disabled", true)
+    }
+    if(steps) {
+      const nextStepDoesNotExist = step !== steps.length-1
+      if(nextStepDoesNotExist) {
+        nextButton.removeAttribute("disabled")
+      } else {
+        nextButton.attribute("disabled", true)
+      }
+    }
   }
 }
