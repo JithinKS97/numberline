@@ -1,5 +1,13 @@
 class Calculator {
-    calculate(exp) {       
+    calculate(exp) {      
+
+        try {
+            eval(exp)
+        } catch(err) {
+            console.log("Invalid expression")
+            return;
+        }
+        
         if(Number(exp[0])) {
             exp = "+" + exp;
         }
@@ -14,6 +22,12 @@ class Calculator {
                 total = eval(total+symbol+currentNo)
                 steps.push(total)
             } else {
+                // takes care of 2 consecutive negatives
+                if(exp[i]==="-" && exp[i+1]==="-") {
+                    symbol = "+"
+                    i=i+1
+                    continue;
+                }
                 symbol = exp[i]
             }
         }

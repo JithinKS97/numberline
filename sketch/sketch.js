@@ -98,6 +98,9 @@ const begin = () => {
   initialize();
   t.clear();
   steps = c.calculate(expInput.value());
+  if(!steps) {
+    return;
+  }
   steps = [0, ...steps]
   step = 0;
   b.x = n.getPix(0);
