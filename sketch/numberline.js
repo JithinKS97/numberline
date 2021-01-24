@@ -33,8 +33,8 @@ class Numberline {
       circle(x,this.y, 6)      
 
       textAlign(CENTER)
-      textSize(15);
-      text(n, x, this.y+25);
+      textSize(16);
+      text(n, x, this.y+28);
     }
   }
 
