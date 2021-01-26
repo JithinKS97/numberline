@@ -83,8 +83,6 @@ const add = (noToAdd) => async () => {
   }
 };
 
-let b2Now = 0;
-
 const moveAndShowCalculation = async (from, to) => {
   if (loading) {
     return;
@@ -95,10 +93,10 @@ const moveAndShowCalculation = async (from, to) => {
   let isDoubleNegative = symbols[step] === "--"
   let expression
   if(isDoubleNegative) {
-    expression = getExp(from, to, "--")
     if(to>from) {
+      expression = getExp(from, to, "--")
       await t.showText(expression, "--")
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 800));
       await t.hideText()
     }
     expression = getExp(from, to);
@@ -107,7 +105,7 @@ const moveAndShowCalculation = async (from, to) => {
     } else {
       await t.showText(expression)
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 800));
   } else {
     expression = getExp(from, to);
     await t.showText(expression)
@@ -152,13 +150,11 @@ const moveBall = async (b1, from, to) => {
 }
 
 const moveByApparition = async (b2, x) => {
-  if(x) {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    await b2.disappear();
-    b2.x = n.getPix(x);
-    await b2.appear();
-    await new Promise(resolve => setTimeout(resolve, 200));
-  }
+  await new Promise(resolve => setTimeout(resolve, 200));
+  await b2.disappear();
+  b2.x = n.getPix(x);
+  await b2.appear();
+  await new Promise(resolve => setTimeout(resolve, 200));
 }
 
 let symbols;

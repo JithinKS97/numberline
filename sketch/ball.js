@@ -1,4 +1,4 @@
-const noOfSteps = 38
+const noOfSteps = 36
 const alphaStep = 25;
 
 class Ball {
