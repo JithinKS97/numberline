@@ -72,11 +72,11 @@ class Text {
 
 function drawColoredText( x, y, text_array ) {
    fill(text_array[0][1]) 
-   text(text_array[0][0], x-1.2*textWidth(text_array[0][0]), y);
+   text(text_array[0][0], x-(textWidth(text_array[0][0])), y);
     
    fill(text_array[1][1])
    text(text_array[1][0], x, y);
    
    fill(text_array[2][1])
-   text(text_array[2][0], x+1.2*textWidth(text_array[2][0]), y)
+   text(text_array[2][0], x+(textWidth(text_array[2][0])), y)
 }
