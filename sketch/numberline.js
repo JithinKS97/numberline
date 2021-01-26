@@ -41,4 +41,8 @@ class Numberline {
   getPix(x) {
     return this.x + (x-this.min) * this.tickWidth * (1/this.tick)
   }
+
+  getCoord(p) {
+    return Math.round((this.tick*(p-this.x)/this.tickWidth) + this.min);
+  }
 }

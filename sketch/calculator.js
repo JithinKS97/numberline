@@ -11,12 +11,23 @@ class Calculator {
                     currentNo = exp[i] + exp[i+1]
                     i++;
                 }
+                if(symbol === "--") {
+                    total = eval(total+"+"+currentNo)
+                    steps.push({
+                        current:total,
+                        symbol:"--"
+                    })
+                    continue;
+                }
                 total = eval(total+symbol+currentNo)
-                steps.push(total)
+                steps.push({
+                    current:total,
+                    symbol
+                })
             } else {
                 // takes care of 2 consecutive negatives
                 if(exp[i]==="-" && exp[i+1]==="-") {
-                    symbol = "+"
+                    symbol = "--"
                     i=i+1
                     continue;
                 }

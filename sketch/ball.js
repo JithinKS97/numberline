@@ -1,17 +1,23 @@
-const noOfSteps = 40
+const noOfSteps = 38
+const alphaStep = 25;
 
 class Ball {
-    constructor({ x, y }) {
+    constructor({ x, y, fill }) {
         this.x = x
         this.y = y
         this.distToTravel = 0;
 
         this.curveCenter = createVector()
         this.yJump = 0
+        this.fill = fill
+
+        this.isDisappearing
+        this.alpha = 255
     }
 
     display() {
-        fill(220, 0, 150)
+        this.doApparition();
+        fill([...this.fill, this.alpha])
         circle(this.x, this.y + this.yJump, 15)
         this.doJump();
     }
@@ -42,5 +48,39 @@ class Ball {
 
     resetSteps() {
         this.noOfSteps = noOfSteps;
+    }
+
+    disappear() {
+        return new Promise((resolve)=>{
+            this.isDisappearing = true;
+            this.afterDisappear = resolve;
+        })
+    }
+
+    appear() {
+        return new Promise((resolve)=>{
+            this.isDisappearing = false;
+            this.afterAppear = resolve;
+        })
+    }
+
+    doApparition() {
+        if(this.isDisappearing) {
+            if(this.alpha>-alphaStep) {
+                this.alpha -= alphaStep
+            } else {
+                if(this.afterDisappear) {
+                    this.afterDisappear();
+                }
+            }
+        } else {
+            if(this.alpha<255+alphaStep) {
+                this.alpha += alphaStep
+            } else {
+                if(this.afterAppear) {
+                    this.afterAppear();
+                }
+            }
+        }
     }
 }

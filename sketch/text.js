@@ -7,6 +7,8 @@ class Text {
         this.text = ""
         this.alphaStep = 35
         this.size = size
+        this.highLightText
+        this.fill = [255,255,255]
     }
 
     display() {
@@ -14,11 +16,23 @@ class Text {
        fill(255, 255,255, this.alpha)
        textSize(this.size)
        textAlign(CENTER)
-       text(this.text, this.x, this.y)
+       if(this.highLightText) {
+            const startIndex = this.text.indexOf(this.highLightText)
+            const endIndex = startIndex + this.highLightText.length
+            const parts = [
+                [this.text.slice(0, startIndex), [...this.fill, this.alpha]],
+                [this.text.slice(startIndex, endIndex), [255,0,0, this.alpha]],
+                [this.text.slice(endIndex, this.text.length), [...this.fill, this.alpha]]
+            ]
+            drawColoredText(this.x, this.y ,parts)
+       } else {
+            text(this.text, this.x, this.y)
+       }
     }
 
-    showText(text) {
+    showText(text, highLightText) {
         return new Promise((resolve)=>{
+            this.highLightText = highLightText
             this.show = true;
             this.text = text;
             this.finishShow = resolve
@@ -54,4 +68,15 @@ class Text {
     clear() {
         this.text = ""
     }
+}
+
+function drawColoredText( x, y, text_array ) {
+   fill(text_array[0][1]) 
+   text(text_array[0][0], x-1.2*textWidth(text_array[0][0]), y);
+    
+   fill(text_array[1][1])
+   text(text_array[1][0], x, y);
+   
+   fill(text_array[2][1])
+   text(text_array[2][0], x+1.2*textWidth(text_array[2][0]), y)
 }
